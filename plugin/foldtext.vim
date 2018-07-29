@@ -24,14 +24,17 @@ function! FoldText()
         let line = substitute(getline(fs), '\t', spaces, 'g')
     endif
 
-    let foldEnding = strpart(getline(v:foldend), indent(v:foldend), 3)
-
-    let endBlockChars = ['end', '}', ']', ')', '})']
-    let endBlockRegex = printf('^\s*\(%s\);\?$', join(endBlockChars, '\|'))
+    let endBlockChars   = ['end', '}', ']', ')', '})', '}}}']
+    let endBlockRegex = printf('^\(\s*\|\s*\"\s*\)\(%s\);\?$', join(endBlockChars, '\|'))
     let endCommentRegex = '\s*\*/$'
     let startCommentBlankRegex = '\v^\s*/\*!?\s*$'
 
+    let foldEnding = strpart(getline(v:foldend), indent(v:foldend), 3)
+
     if foldEnding =~ endBlockRegex
+        if foldEnding =~ '^\s*\"'
+            let foldEnding = strpart(getline(v:foldend), indent(v:foldend)+2, 3)
+        end
         let foldEnding = " " . g:FoldText_placeholder . " " . foldEnding
     elseif foldEnding =~ endCommentRegex
         if getline(v:foldstart) =~ startCommentBlankRegex
