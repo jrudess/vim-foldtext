@@ -26,7 +26,7 @@ function! FoldText()
 
     let foldEnding = strpart(getline(v:foldend), indent(v:foldend), 3)
 
-    let endBlockChars = ['end', '}', ']', ')']
+    let endBlockChars = ['end', '}', ']', ')', '})']
     let endBlockRegex = printf('^\s*\(%s\);\?$', join(endBlockChars, '\|'))
     let endCommentRegex = '\s*\*/$'
     let startCommentBlankRegex = '\v^\s*/\*!?\s*$'
@@ -56,12 +56,11 @@ function! FoldText()
             let line = strpart(line, 0, width - strwidth(foldEnding . ending))
         endif
 
-        let expansionStr = repeat(" ", g:FoldText_gap + width - strwidth(line . foldEnding . ending))
     else
         let ending = ""
-        let expansionStr = repeat(" ", g:FoldText_gap + width - strwidth(line . foldEnding . ending))
     endif
 
+    let expansionStr = repeat(" ", g:FoldText_gap + width - strwidth(line . foldEnding . ending))
     return line . foldEnding . expansionStr . ending
 endfunction
 
