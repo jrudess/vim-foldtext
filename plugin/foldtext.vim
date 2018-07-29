@@ -7,7 +7,7 @@ endif
 let g:FoldText_placeholder    = get(g:, 'FoldText_placeholder',    defaults['placeholder'])
 let g:FoldText_line           = get(g:, 'FoldText_line',           defaults['line'])
 let g:FoldText_multiplication = get(g:, 'FoldText_multiplication', defaults['multiplication'])
-let g:FoldText_gap            = get(g:, 'FoldText_gap',            0)
+let g:FoldText_gap            = get(g:, 'FoldText_gap',            4)
 let g:FoldText_info           = get(g:, 'FoldText_info',           1)
 
 unlet defaults
@@ -47,17 +47,15 @@ function! FoldText()
     let numberColumnWidth = &number ? strwidth(line('$')) : 0
     let width = winwidth(0) - foldColumnWidth - numberColumnWidth - g:FoldText_gap
 
+    let ending = ""
     if g:FoldText_info
         let foldSize = 1 + v:foldend - v:foldstart
-        let ending = g:FoldText_multiplication . foldSize
-        let ending = printf("%s%5s", g:FoldText_line, ending)
+        let ending = printf("%s%s", g:FoldText_multiplication, foldSize)
+        let ending = printf("%s%-6s", g:FoldText_line, ending)
 
         if strwidth(line . foldEnding . ending) >= width
             let line = strpart(line, 0, width - strwidth(foldEnding . ending))
         endif
-
-    else
-        let ending = ""
     endif
 
     let expansionStr = repeat(" ", g:FoldText_gap + width - strwidth(line . foldEnding . ending))
