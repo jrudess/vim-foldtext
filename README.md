@@ -14,5 +14,6 @@ Features
 --------
 * Handles vim-gitgutter dynamically changing gutter width
 * Line count info can be toggled with `let g:FoldText_info=!g:FoldText_info`
+* Use [indentLine](https://github.com/Yggdroot/indentLine) for fold-line shown in example as an alternative to foldcolumn lines
 
 ![img](https://github.com/jrudess/vim-foldtext/blob/master/example.png)
