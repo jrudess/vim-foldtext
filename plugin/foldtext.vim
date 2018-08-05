@@ -24,7 +24,7 @@ function! FoldText()
         let line = substitute(getline(fs), '\t', spaces, 'g')
     endif
 
-    let endBlockChars   = ['end', '}', ']', ')', '})', '}}}']
+    let endBlockChars   = ['end', '}', ']', ')', '})', '},', '}}}']
     let endBlockRegex = printf('^\(\s*\|\s*\"\s*\)\(%s\);\?$', join(endBlockChars, '\|'))
     let endCommentRegex = '\s*\*/$'
     let startCommentBlankRegex = '\v^\s*/\*!?\s*$'
