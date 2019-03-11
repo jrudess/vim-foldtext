@@ -12,7 +12,7 @@ Use your preferred plugin manager to install
 
 Features
 --------
-* Handles vim-gitgutter dynamically changing gutter width
+* Handles dynamic toggling of sign/fold/number columns
 * Line count info can be toggled with `let g:FoldText_info=!g:FoldText_info`
 * Use [indentLine](https://github.com/Yggdroot/indentLine) for fold-line shown in example as an alternative to foldcolumn lines
 
