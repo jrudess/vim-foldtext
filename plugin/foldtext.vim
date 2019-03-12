@@ -52,15 +52,15 @@ function! FoldText()
     let ending = ""
     if g:FoldText_info
         let foldSize = 1 + v:foldend - v:foldstart
-        let ending = printf("%s%s", g:FoldText_multiplication, foldSize)
-        let ending = printf("%s%-11s", g:FoldText_line, ending)
+        let ending = printf("%s%s%s", g:FoldText_line, g:FoldText_multiplication, foldSize)
+        let ending = printf("%-11s", ending)
 
         if strwidth(line . foldEnding . ending) >= width
             let line = strpart(line, 0, width - strwidth(foldEnding . ending))
         endif
     endif
 
-    let expansionStr = repeat(" ", g:FoldText_gap + width - strwidth(line . foldEnding . ending))
+    let expansionStr = repeat(" ", width - strwidth(line . foldEnding . ending))
     return line . foldEnding . expansionStr . ending
 endfunction
 
