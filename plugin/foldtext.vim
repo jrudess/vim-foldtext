@@ -56,7 +56,7 @@ function! FoldText()
         let ending = printf("%-11s", ending)
 
         if strwidth(line . foldEnding . ending) >= width
-            let line = strpart(line, 0, width - strwidth(foldEnding . ending))
+            let line = strpart(line, 0, width - strwidth(foldEnding . ending) - 2)
         endif
     endif
 
