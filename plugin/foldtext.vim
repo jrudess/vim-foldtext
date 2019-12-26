@@ -47,9 +47,11 @@ function! FoldText()
     endif
     let foldEnding = substitute(foldEnding, '\s\+$', '', '')
 
+    redir =>signs | exe "silent sign place buffer=".bufnr('') | redir end
+    let signlist = split(signs, '\n')
     let foldColumnWidth = (&foldcolumn ? &foldcolumn : 0)
     let numberColumnWidth = &number ? strwidth(line('$')) : 0
-    let signColumnWidth = 2
+    let signColumnWidth = len(signlist) >= 2 ? 2 : 0
     let width = winwidth(0) - foldColumnWidth - numberColumnWidth - signColumnWidth
 
     let ending = ""
