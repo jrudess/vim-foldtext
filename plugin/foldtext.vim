@@ -8,6 +8,7 @@ let g:FoldText_placeholder    = get(g:, 'FoldText_placeholder',    defaults['pla
 let g:FoldText_line           = get(g:, 'FoldText_line',           defaults['line'])
 let g:FoldText_multiplication = get(g:, 'FoldText_multiplication', defaults['multiplication'])
 let g:FoldText_info           = get(g:, 'FoldText_info',           1)
+let g:FoldText_width          = get(g:, 'FoldText_width',          0)
 
 unlet defaults
 
@@ -51,9 +52,14 @@ function! FoldText()
 
     let ending = ""
     if g:FoldText_info
+        if g:FoldText_width > 0
+            let endsize = "%-" . string(width - g:FoldText_width + 4) . "s"
+        else
+            let endsize = "%-11s"
+        end
         let foldSize = 1 + v:foldend - v:foldstart
         let ending = printf("%s%s%s", g:FoldText_line, g:FoldText_multiplication, foldSize)
-        let ending = printf("%-11s", ending)
+        let ending = printf(endsize, ending)
 
         if strwidth(line . foldEnding . ending) >= width
             let line = strpart(line, 0, width - strwidth(foldEnding . ending) - 2)
