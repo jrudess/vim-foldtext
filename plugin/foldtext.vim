@@ -47,12 +47,14 @@ function! FoldText()
     endif
     let foldEnding = substitute(foldEnding, '\s\+$', '', '')
 
-    let virtColWidth = wincol()-virtcol('.')
-    let width = winwidth(0) - virtColWidth
+    let foldColumnWidth = (&foldcolumn ? &foldcolumn : 0)
+    let numberColumnWidth = &number ? strwidth(line('$')) : 0
+    let signColumnWidth = 2
+    let width = winwidth(0) - foldColumnWidth - numberColumnWidth - signColumnWidth
 
     let ending = ""
     if g:FoldText_info
-        if g:FoldText_width > 0
+        if g:FoldText_width > 0 && g:FoldText_width < (width-6)
             let endsize = "%-" . string(width - g:FoldText_width + 4) . "s"
         else
             let endsize = "%-11s"
