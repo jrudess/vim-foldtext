@@ -9,6 +9,7 @@ let g:FoldText_line           = get(g:, 'FoldText_line',           defaults['lin
 let g:FoldText_multiplication = get(g:, 'FoldText_multiplication', defaults['multiplication'])
 let g:FoldText_info           = get(g:, 'FoldText_info',           1)
 let g:FoldText_width          = get(g:, 'FoldText_width',          0)
+let g:FoldText_expansion      = get(g:, 'FoldText_expansion',      "<=>")
 
 unlet defaults
 
@@ -70,7 +71,14 @@ function! FoldText()
         endif
     endif
 
-    let expansionStr = repeat(" ", width - strwidth(line . foldEnding . ending))
+    let expansionWidth = width - strwidth(line . foldEnding . ending)
+    let expansionStr = repeat(" ", expansionWidth)
+    if expansionWidth > 2
+      let extensionCenterWidth = strwidth(g:FoldText_expansion[1:-2])
+      let remainder = (expansionWidth - 2) % extensionCenterWidth
+      echo remainder extensionCenterWidth expansionWidth
+      let expansionStr = g:FoldText_expansion[0] . repeat(g:FoldText_expansion[1:-2], (expansionWidth - 2)/extensionCenterWidth) . repeat(g:FoldText_expansion[-2:-2], remainder) . g:FoldText_expansion[-1:]
+    endif
     return line . foldEnding . expansionStr . ending
 endfunction
 
