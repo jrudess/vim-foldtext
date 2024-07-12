@@ -76,7 +76,6 @@ function! FoldText()
     if expansionWidth > 2
       let extensionCenterWidth = strwidth(g:FoldText_expansion[1:-2])
       let remainder = (expansionWidth - 2) % extensionCenterWidth
-      echo remainder extensionCenterWidth expansionWidth
       let expansionStr = g:FoldText_expansion[0] . repeat(g:FoldText_expansion[1:-2], (expansionWidth - 2)/extensionCenterWidth) . repeat(g:FoldText_expansion[-2:-2], remainder) . g:FoldText_expansion[-1:]
     endif
     return line . foldEnding . expansionStr . ending
