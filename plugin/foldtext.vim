@@ -9,7 +9,7 @@ let g:FoldText_line           = get(g:, 'FoldText_line',           defaults['lin
 let g:FoldText_multiplication = get(g:, 'FoldText_multiplication', defaults['multiplication'])
 let g:FoldText_info           = get(g:, 'FoldText_info',           1)
 let g:FoldText_width          = get(g:, 'FoldText_width',          0)
-let g:FoldText_expansion      = get(g:, 'FoldText_expansion',      "<=>")
+let g:FoldText_expansion      = get(g:, 'FoldText_expansion',      "   ")
 
 unlet defaults
 
